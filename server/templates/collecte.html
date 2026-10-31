@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Smart Bin — Collecte</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body class="mobile">
+  <header>
+    <div>
+      <h1>Tournée de collecte</h1>
+      <p class="sub">Poubelles à vider en premier</p>
+    </div>
+  </header>
+  <main>
+    <ul id="todo" class="todo"></ul>
+    <p class="hint">Mise à jour automatique toutes les 5 s. En approchant, le couvercle s'ouvre tout seul.</p>
+  </main>
+  <script>
+    const FULL = {{ full_pct }};
+    async function refresh() {
+      const bins = await (await fetch('/api/bins')).json();
+      bins.sort((a, b) => (b.level ?? -1) - (a.level ?? -1));
+      document.getElementById('todo').innerHTML = bins.map(b => {
+        const lvl = b.level ?? 0;
+        const urgent = lvl >= FULL;
+        return `<li class="${urgent ? 'urgent' : ''} ${b.status}">
+          <div class="todo-main">
+            <strong>${b.name}</strong>
+            <span>${b.location}</span>
+          </div>
+          <div class="todo-level">${b.level === null ? '—' : lvl + ' %'}</div>
+          <div class="todo-tag">${b.status === 'offline' ? 'hors ligne' : urgent ? 'À VIDER' : 'OK'}</div>
+        </li>`;
+      }).join('');
+    }
+    refresh();
+    setInterval(refresh, 5000);
+  </script>
+</body>
+</html>

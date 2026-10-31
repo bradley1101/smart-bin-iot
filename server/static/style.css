@@ -1,0 +1,50 @@
+:root {
+  --bg: #f4f5f2; --card: #fff; --ink: #1d2320; --muted: #66706a; --line: #e2e5df;
+  --ok: #16a34a; --half: #d97706; --full: #dc2626; --off: #9ca3af;
+}
+* { box-sizing: border-box; }
+body { margin: 0; font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; background: var(--bg); color: var(--ink); }
+header { display: flex; flex-wrap: wrap; gap: 12px; justify-content: space-between; align-items: center;
+         padding: 20px 28px; background: #1f3a2e; color: #fff; }
+h1 { margin: 0; font-size: 22px; letter-spacing: .2px; }
+.sub { margin: 2px 0 0; opacity: .75; font-size: 14px; }
+.meta { display: flex; flex-wrap: wrap; gap: 8px; }
+.pill { font-size: 12px; padding: 5px 10px; border-radius: 999px; background: rgba(255,255,255,.12); color: #fff; text-decoration: none; }
+.pill.on { background: #16a34a; } .pill.off { background: rgba(255,255,255,.12); }
+main { max-width: 1100px; margin: 0 auto; padding: 24px 16px 40px; display: grid; gap: 20px; }
+.bins { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px; }
+.bin, .panel { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 18px; }
+.bin { display: flex; gap: 20px; }
+.gauge { position: relative; width: 74px; height: 150px; flex: none; border: 3px solid #cfd5cc; border-top-width: 10px;
+         border-radius: 6px 6px 14px 14px; overflow: hidden; background: #f8faf7; }
+.gauge .fill { position: absolute; bottom: 0; left: 0; right: 0; background: var(--ok); transition: height .6s; }
+.bin.half .fill { background: var(--half); } .bin.full .fill { background: var(--full); } .bin.offline .fill { background: var(--off); }
+.gauge span { position: absolute; inset: 0; display: grid; place-items: center; font-weight: 700; font-size: 18px; color: #111; text-shadow: 0 0 4px #fff; }
+.title { display: flex; align-items: center; gap: 8px; } .title i, .legend i { width: 10px; height: 10px; border-radius: 3px; display: inline-block; }
+h3 { margin: 0; font-size: 18px; } h2 { margin: 0 0 12px; font-size: 16px; }
+.loc { margin: 2px 0 10px; color: var(--muted); font-size: 14px; }
+.badge { font-size: 12px; font-weight: 600; padding: 3px 9px; border-radius: 6px; color: #fff; background: var(--ok); }
+.badge.half { background: var(--half); } .badge.full { background: var(--full); } .badge.offline, .badge.unknown { background: var(--off); }
+dl { display: grid; grid-template-columns: auto 1fr; gap: 4px 14px; margin: 14px 0 0; font-size: 13px; }
+dt { color: var(--muted); } dd { margin: 0; }
+.panel-head { display: flex; justify-content: space-between; align-items: center; }
+.legend { display: flex; gap: 14px; font-size: 13px; } .legend span { display: flex; align-items: center; gap: 6px; }
+#chart { width: 100%; height: 240px; }
+#chart .grid { stroke: var(--line); } #chart .axis { font-size: 11px; fill: var(--muted); }
+.events { list-style: none; margin: 0; padding: 0; font-size: 14px; }
+.events li { padding: 8px 0; border-top: 1px solid var(--line); display: flex; gap: 10px; flex-wrap: wrap; align-items: baseline; }
+.events li:first-child { border-top: 0; }
+.events time { color: var(--muted); font-size: 12px; min-width: 140px; }
+.events .FULL_ALERT b { color: var(--full); } .events .EMPTIED b { color: var(--ok); }
+.events small { color: var(--muted); }
+/* collectors' page */
+.mobile main { max-width: 520px; }
+.todo { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
+.todo li { display: grid; grid-template-columns: 1fr auto; grid-template-rows: auto auto; gap: 4px 12px; background: var(--card);
+           border: 1px solid var(--line); border-left: 8px solid var(--ok); border-radius: 12px; padding: 16px; }
+.todo li.urgent { border-left-color: var(--full); background: #fff5f5; }
+.todo li.offline { border-left-color: var(--off); opacity: .7; }
+.todo-main { display: flex; flex-direction: column; } .todo-main span { color: var(--muted); font-size: 14px; }
+.todo-level { font-size: 28px; font-weight: 800; grid-row: span 2; align-self: center; }
+.todo-tag { font-size: 12px; font-weight: 700; color: var(--muted); } .urgent .todo-tag { color: var(--full); }
+.hint { color: var(--muted); font-size: 13px; text-align: center; }

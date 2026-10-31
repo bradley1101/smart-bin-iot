@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Smart Bin — Supervision</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <header>
+    <div>
+      <h1>Smart Bin</h1>
+      <p class="sub">Supervision des poubelles connectées</p>
+    </div>
+    <div class="meta">
+      <span class="pill {{ 'on' if whatsapp else 'off' }}">WhatsApp {{ 'actif' if whatsapp else 'démo' }}</span>
+      <span class="pill">Alerte à {{ alert_pct }} %</span>
+      <a class="pill link" href="/collecte">Vue éboueurs →</a>
+    </div>
+  </header>
+
+  <main>
+    <section id="bins" class="bins"></section>
+
+    <section class="panel">
+      <div class="panel-head">
+        <h2>Historique (24 h)</h2>
+        <div id="legend" class="legend"></div>
+      </div>
+      <svg id="chart" viewBox="0 0 800 240" preserveAspectRatio="none"></svg>
+    </section>
+
+    <section class="panel">
+      <h2>Événements</h2>
+      <ul id="events" class="events"></ul>
+    </section>
+  </main>
+
+  <script src="{{ url_for('static', filename='dashboard.js') }}"></script>
+</body>
+</html>
